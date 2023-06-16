@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "d0feeafe-4d73-411b-b41f-79b12f090cce",
+    "name": "Annonce-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "13990960"
+  },
+  "item": [
+    {
+      "name": "Voir toutes les annonces",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/annonces/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "annonces",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Voir une annonce par Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/annonces/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "annonces",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Ajouter une annonce",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"titre\": \"Recherche Développeurs Java\",\n    \"description\": \"Nous sommes à la recherche d'un développeur Java Spring\",\n    \"prix\": 120000,\n    \"type\": \"emploi\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/annonces/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "annonces",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Modifier une annonce par Id",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"titre\": \"Recherche Développeurs mobile\",\n    \"description\": \"Nous sommes à la recherche d'un développeur mobile Flutter\",\n    \"prix\": 120.000,\n    \"type\": \"emploi\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/annonces/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "annonces",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Supprimer une annonce par Id",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/annonces/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "annonces",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
