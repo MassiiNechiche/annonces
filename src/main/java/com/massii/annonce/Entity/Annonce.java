@@ -16,6 +16,14 @@ public class Annonce {
     private String titre;
     private String description;
     private double prix;
-    private String type;
+
+    @Enumerated(EnumType.STRING)
+    private AnnonceType type;
+
+    public enum AnnonceType {
+        Immobilier,
+        véhicule,
+        emploi
+    }
 
 }
