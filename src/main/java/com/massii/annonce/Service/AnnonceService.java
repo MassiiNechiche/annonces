@@ -8,9 +8,9 @@ import java.util.List;
 public interface AnnonceService {
     Annonce saveAnnonce(AnnonceDTO annonceDTO);
     List<AnnonceDTO> fetchAllAnnonces();
-    AnnonceDTO getAnnonceById(Long id);
+    ResponseEntity<?> getAnnonceById(Long id);
     ResponseEntity<?> updateAnnonceById(Long id, AnnonceDTO annonceDTO);
-    String deleteAnnonceById(Long id);
+    ResponseEntity<?> deleteAnnonceById(Long id);
     List<AnnonceDTO> searchAnnonces(String titre, Double prixMin, Double prixMax, Annonce.AnnonceType type);
 
 }

@@ -6,10 +6,16 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnnonceDTO {
     private Long id;
 
@@ -25,9 +31,6 @@ public class AnnonceDTO {
     @NotNull(message = "Veuillez spécifier un type d'annonce")
     @Enumerated(EnumType.STRING)
     private Annonce.AnnonceType type;
-
-    public AnnonceDTO() {
-    }
 
     public AnnonceDTO(Annonce annonce) {
         this.id = annonce.getId();

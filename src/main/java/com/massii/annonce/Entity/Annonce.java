@@ -1,6 +1,7 @@
 package com.massii.annonce.Entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Annonce {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

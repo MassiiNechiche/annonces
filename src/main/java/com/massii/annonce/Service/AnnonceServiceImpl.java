@@ -1,5 +1,6 @@
 package com.massii.annonce.Service;
 
+import com.massii.annonce.DTO.ErrorDTO;
 import com.massii.annonce.Entity.Annonce;
 import com.massii.annonce.Repository.AnnonceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +38,15 @@ public class AnnonceServiceImpl implements AnnonceService {
     }
 
     @Override
-    public AnnonceDTO getAnnonceById(Long id){
-        Optional<Annonce> annonce = annonceRepository.findById(id);
-        return annonce.map(AnnonceDTO::new).orElse(null);
+    public ResponseEntity<?> getAnnonceById(Long id) {
+        Optional<Annonce> annonceOptional = annonceRepository.findById(id);
+        if (annonceOptional.isPresent()) {
+            Annonce annonce = annonceOptional.get();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AnnonceDTO(annonce));
+        } else {
+            ErrorDTO errorDTO = new ErrorDTO("Annonce introuvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
+        }
     }
     @Override
     public ResponseEntity<?> updateAnnonceById(Long id, AnnonceDTO annonceDTO){
@@ -50,17 +57,20 @@ public class AnnonceServiceImpl implements AnnonceService {
             Annonce updatedAnnonce = annonceRepository.save(originalAnnonce);
             return ResponseEntity.ok(updatedAnnonce);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Annonce introuvable");
+            ErrorDTO errorDTO = new ErrorDTO("Annonce introuvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
         }
     }
 
     @Override
-    public String deleteAnnonceById(Long id){
+    public ResponseEntity<?> deleteAnnonceById(Long id){
         if(annonceRepository.findById(id).isPresent()){
             annonceRepository.deleteById(id);
-            return "Annonce supprimée avec succés";
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Annonce supprimée avec succés");
+        }else{
+            ErrorDTO errorDTO = new ErrorDTO("Annonce introuvable");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
         }
-        return "Annonce introuvable";
     }
 
     @Override

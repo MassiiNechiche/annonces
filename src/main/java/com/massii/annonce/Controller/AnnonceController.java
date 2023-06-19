@@ -31,7 +31,7 @@ public class AnnonceController {
     }
 
     @GetMapping("/{id}")
-    public AnnonceDTO getAnnonceById(@PathVariable("id") Long id){
+    public ResponseEntity<?> getAnnonceById(@PathVariable("id") Long id){
         return annonceService.getAnnonceById(id);
     }
 
@@ -46,7 +46,7 @@ public class AnnonceController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAnnonce(@PathVariable("id") long id){
+    public ResponseEntity<?> deleteAnnonce(@PathVariable("id") long id){
         return annonceService.deleteAnnonceById(id);
     }
 
