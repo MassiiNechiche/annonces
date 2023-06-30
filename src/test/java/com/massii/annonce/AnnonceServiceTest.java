@@ -6,16 +6,16 @@ import com.massii.annonce.Repository.AnnonceRepository;
 import com.massii.annonce.Service.AnnonceServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class AnnonceServiceTest {
@@ -25,6 +25,15 @@ public class AnnonceServiceTest {
 
     @InjectMocks
     private AnnonceServiceImpl annonceService;
+
+    @Captor
+    private ArgumentCaptor<String> titreCaptor;
+    @Captor
+    private ArgumentCaptor<Double> prixMinCaptor;
+    @Captor
+    private ArgumentCaptor<Double> prixMaxCaptor;
+    @Captor
+    private ArgumentCaptor<Annonce.AnnonceType> typeCaptor;
 
     @BeforeEach
     public void setup() {
@@ -100,7 +109,7 @@ public class AnnonceServiceTest {
     }
 
     @Test
-    void canSaveAnnonce() {
+    void shouldSaveAnnonce() {
         AnnonceDTO annonceDTO = new AnnonceDTO();
         annonceDTO.setTitre("Test Annonce");
         annonceDTO.setDescription("Test Description");
@@ -123,5 +132,29 @@ public class AnnonceServiceTest {
         assertEquals(Annonce.AnnonceType.emploi, savedAnnonceDTO.getType());
     }
 
+    @Test
+    void testSearchAnnonces() {
+        String titre = "example";
+        Double prixMin = 100.0;
+        Double prixMax = 500.0;
+        Annonce.AnnonceType type = Annonce.AnnonceType.emploi;
+
+        List<Annonce> mockedAnnonces = new ArrayList<>();
+
+        when(annonceRepository.search(anyString(), anyDouble(), anyDouble(), any(Annonce.AnnonceType.class)))
+                .thenReturn(mockedAnnonces);
+
+        List<AnnonceDTO> result = annonceService.searchAnnonces(titre, prixMin, prixMax, type);
+
+        verify(annonceRepository).search(titreCaptor.capture(), prixMinCaptor.capture(),
+                prixMaxCaptor.capture(), typeCaptor.capture());
+
+        // capturer les arguments et vérifier si ils correspondent aux arguments passés
+        assertEquals(titre, titreCaptor.getValue());
+        assertEquals(prixMin, prixMinCaptor.getValue());
+        assertEquals(prixMax, prixMaxCaptor.getValue());
+        assertEquals(type, typeCaptor.getValue());
+        assertEquals(mockedAnnonces.size(), result.size());
+    }
 
 }

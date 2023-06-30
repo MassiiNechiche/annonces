@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.EnumSet;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @Slf4j
 @RequestMapping("/annonces")
@@ -24,6 +25,7 @@ public class AnnonceController {
     public AnnonceController(AnnonceService annonceService){
         this.annonceService = annonceService;
     }
+
 
     @GetMapping("/")
     public List<AnnonceDTO> getAllAnnonces(){

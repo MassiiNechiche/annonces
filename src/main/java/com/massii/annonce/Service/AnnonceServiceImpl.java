@@ -42,7 +42,7 @@ public class AnnonceServiceImpl implements AnnonceService {
         Optional<Annonce> annonceOptional = annonceRepository.findById(id);
         if (annonceOptional.isPresent()) {
             Annonce annonce = annonceOptional.get();
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AnnonceDTO(annonce));
+            return ResponseEntity.status(HttpStatus.OK).body(new AnnonceDTO(annonce));
         } else {
             ErrorDTO errorDTO = new ErrorDTO("Annonce introuvable");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDTO);
